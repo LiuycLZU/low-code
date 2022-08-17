@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* 导航栏样式 */
+nav {
+    height: 60px;
+    width: 100%;
+}
+
+nav ul {
+    height: 60px;
+    width: 500px;
+    margin: auto;
+}
+
+nav ul li {
+    float: left;
+    height: 60px;
+    width: 100px;
+    margin-left: 20px;
+    line-height: 60px;
+    text-align: center;
+}
+
+nav ul li a {
+    display: block;
+    height: 57px;
+    width: 65px;
+    margin: 0 auto;
+}
+
+nav ul li a:hover {
+    border-bottom: 3.5px solid rgb(55, 168, 161);
+    color: rgb(55, 168, 161);
+}
+
+/* 预览/保存按钮样式 */
+.button {
+    position: absolute;
+    right: 30px;
+}
+
+.button button {
+    height: 25px;
+    width: 60px;
+    margin-left: 5px;
+    border: 1px solid rgb(55, 168, 161);
+    cursor: pointer;
+}
+
+/* 预览按钮样式 */
+.button .preview {
+    color: rgb(55, 168, 161);
+    background-color: #fff;
+}
+
+/* 保存按钮样式 */
+.button .serve {
+    color: #fff;
+    background-color: rgb(55, 168, 161);
+}
+
+/* 鼠标经过按钮样式 */
+.button button:hover {
+    box-shadow: 1px 1px 2px .1px rgb(55, 221, 210);
+}
+
+/* 左侧组件菜单栏样式 */
+.left {
+    float: left;
+    height: 650px;
+    width: 250px;
+    margin-top: 50px;
+    overflow-y: scroll;
+}
+
+.left span {
+    display: block;
+    height: 50px;
+    width: 100px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.left .fields {
+    /* 开启网格布局 */
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.left .fields li {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+}
+
+/* 设置滚动条 长宽样式 */
+.left::-webkit-scrollbar {
+    height: 9px;
+    width: 9px;
+}
+
+/* 设置滚动条 内滚部分样式 */
+.left::-webkit-scrollbar-thumb {
+    height: 10px;
+    background: rgb(206, 206, 206);
+    border-radius: 5px;
+    background-clip: padding-box;
+
+}
+
+/* 右侧属性菜单栏样式 */
+.right {
+    float: right;
+    height: 650px;
+    width: 300px;
+    margin-top: 30px;
+}
+
+.right .property {
+    height: 50px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.right .property .propertyLi {
+    float: left;
+    height: 50px;
+    width: 150px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* 鼠标点击属性Tap栏样式 */
+.current {
+    color: rgb(55, 168, 161);
+    border-bottom: 3.5px solid rgb(55, 168, 161);
+}
+
+/* 属性显示栏样式 */
+.right .item {
+    margin-top: 5px;
+    width: 300px;
+    height: 595px;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <!-- 头部导航栏 -->
+    <nav>
+        <ul>
+            <li> <a href="#">表单设计</a></li>
+            <li> <a href="#">扩展功能</a></li>
+            <li> <a href="#">表单发布</a></li>
+            <li> <a href="#">数据管理</a></li>
+        </ul>
+    </nav>
+
+    <!-- 预览/保存按钮 -->
+    <div class="button">
+        <button class="preview">预览</button>
+        <button class="serve">保存</button>
+    </div>
+
+    <!-- 左侧组件菜单栏 -->
+    <div class="left">
+        <span>基础字段</span>
+        <ul class="fields">
+            <li>组件1</li>
+            <li>组件2</li>
+            <li>组件3</li>
+            <li>组件4</li>
+            <li>组件5</li>
+            <li>组件6</li>
+            <li>组件7</li>
+            <li>组件8</li>
+        </ul>
+        <span>基础字段</span>
+        <ul class="fields">
+            <li>组件1</li>
+            <li>组件2</li>
+            <li>组件3</li>
+            <li>组件4</li>
+            <li>组件5</li>
+            <li>组件6</li>
+            <li>组件7</li>
+            <li>组件8</li>
+        </ul>
+        <span>基础字段</span>
+        <ul class="fields">
+            <li>组件1</li>
+            <li>组件2</li>
+            <li>组件3</li>
+            <li>组件4</li>
+            <li>组件5</li>
+            <li>组件6</li>
+            <li>组件7</li>
+            <li>组件8</li>
+        </ul>
+    </div>
+
+    <!-- 中间画布位置 -->
+    <div></div>
+    <!-- 中间画布位置 -->
+
+    <!-- 右侧属性栏 -->
+    <div class="right">
+        <!-- 属性Tap栏 -->
+        <ul class="property">
+            <li class="propertyLi">字段属性</li>
+            <li class="propertyLi">表单属性</li>
+        </ul>
+        <!-- 属性显示栏 -->
+        <div>
+            <div class="item" style="display:none">字段属性</div>
+            <div class="item" style="display:none">表单属性</div>
+        </div>
+    </div>
+
+    <script>
+        //属性栏js部分
+        //获取元素
+        var property = document.querySelector(".property");
+        var propertyLis = property.querySelectorAll('.propertyLi');
+        var items = document.querySelectorAll('.item');
+
+        //for循环绑定点击事件
+        for (var i = 0; i < propertyLis.length; i++) {
+            //开始给所有li设定索引号
+            propertyLis[i].setAttribute('index', i);
+            propertyLis[i].onclick = function () {
+                //排他思想，其余的li先清除class
+                for (var i = 0; i < propertyLis.length; i++) {
+                    propertyLis[i].className = 'propertyLi';
+                }
+                //留下自己
+                this.className = 'propertyLi current';
+                //下面显示内容模块
+                var index = this.getAttribute('index');
+                //排他思想，把其他item全部隐蔽
+                for (var i = 0; i < items.length; i++) {
+                    items[i].style.display = 'none';
+                }
+                //留下对应的item显示
+                items[index].style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
