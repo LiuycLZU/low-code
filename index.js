@@ -1,5 +1,4 @@
 //属性栏js部分
-//属性栏js部分
         //获取元素
         var property = document.querySelector(".property");
         var propertyLis = property.querySelectorAll('.propertyLi');
