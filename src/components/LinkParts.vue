@@ -10,6 +10,7 @@
         字体大小：
         <input type="text" v-model="fontSize" /><br>
     </div>
+    <div></div>
 </template>
 
 <script>
