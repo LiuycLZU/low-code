@@ -4,7 +4,6 @@
     <hr>
     <LinkParts/>
   </div>
-  <div></div>
 </template>
 
 <script>

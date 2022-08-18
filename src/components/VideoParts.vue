@@ -12,7 +12,6 @@
         <!-- 本地上传视频 -->
         本地上传：
         <input type="file"  @change="changeFile"  ><br>
-        <div></div>
     </div>
 </template>
 
