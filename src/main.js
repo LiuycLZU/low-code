@@ -3,8 +3,8 @@ import "./style.css";
 import App from "./App.vue";
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
-import "@/assets/base.css";
-import mitt from "mitt";
+import "@/assets/base.css"; //全局css
+import mitt from "mitt";//事件总线
 const app = createApp(App);
 app.config.globalProperties.$mitt = mitt();
 app.use(Antd).mount("#app");

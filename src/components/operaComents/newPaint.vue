@@ -1,4 +1,5 @@
 <template>
+<!-- 新建画布 -->
   <el-button @click="dialogFormVisible = true">新建画布</el-button>
   <el-dialog v-model="dialogFormVisible" title="新建画布" width="500px" draggable>
     <el-form v-model="from">
@@ -29,6 +30,7 @@ import { defineComponent, reactive, ref } from "vue";
 import emitter from "@/utils/mitt.js"
 let dialogFormVisible = ref(false);
 let from = reactive({length:'',width:''});
+//返回画布数据
 function onsubmit(){
     return from;
 }

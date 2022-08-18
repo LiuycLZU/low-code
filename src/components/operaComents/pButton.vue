@@ -1,4 +1,5 @@
 <template>
+<!-- 画布中button -->
   <el-button
     type="primary"
     class="absolution"

@@ -1,17 +1,20 @@
 <template>
   <div class="center">
+    <!-- 组件栏 -->
     <el-card class="components">
       <template #header>
         <span class="alignLeft">组件</span>
       </template>
       <zButton
     /></el-card>
+    <!-- 画布栏 -->
     <el-card class="paint">
       <template #header>
         <span class="alignLeft">画布</span>
         <newPaint ref="newPaintRef" /> </template
       ><zPaint
     /></el-card>
+    <!-- 编辑栏 -->
     <el-card class="attr">
       <template #header> <span class="alignLeft">编辑属性</span> </template
       ><attrEdit

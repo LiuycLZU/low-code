@@ -1,3 +1,4 @@
+<!-- 画布组件 -->
 <template>
   <div>
     <pButton
@@ -17,14 +18,15 @@ export default defineComponent({
 import { defineComponent, getCurrentInstance, onMounted, ref } from "vue";
 import { returnStyle } from "@/utils/util.js";
 import pButton from "@/components/operaComents/pButton.vue";
-let comArray = ref([]);
+let comArray = ref([]);//控制的数组
+//接受组件的函数
 function receiveComponents(res) {
   comArray.value.push({
-    id: Date.now().valueOf(),
-    style: returnStyle(["height", "width", "top", "left"], res),
+    id: Date.now().valueOf(),//id
+    style: returnStyle(["height", "width", "top", "left"], res),//style
   });
 }
-getCurrentInstance().appContext.config.globalProperties.$mitt.on(
+getCurrentInstance().appContext.config.globalProperties.$mitt.on(//接受信息
   "receiveComponents",
   receiveComponents
 );

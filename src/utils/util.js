@@ -1,3 +1,4 @@
+//工具函数
 function getMousePos() {
   //获得鼠标位置
   let e = window.event;
