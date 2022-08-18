@@ -12,6 +12,7 @@
     "ant-design-vue": "^3.2.11",
     "element-plus": "^2.2.12",
     "mitt": "^3.0.0",
+    "pinia": "^2.0.18",
     "vue": "^3.2.37"
   },
   "devDependencies": {

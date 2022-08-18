@@ -1,5 +1,5 @@
 <template>
-<!-- 按钮组件 -->
+  <!-- 按钮组件 -->
   <div>
     <el-button @mousedown="createZButton" type="primary">按钮</el-button
     ><!-- 用户点击按钮 -->
@@ -16,9 +16,11 @@ export default defineComponent({
 <script setup>
 import { defineComponent, ref, nextTick, getCurrentInstance } from "vue";
 import { getMousePos } from "@/utils/util.js";
+import { usePaintStore } from "@/stores/paint.js";
 let zButtonDiv = ref(null);
 let button;
 let { appContext } = getCurrentInstance();
+const paintStore = usePaintStore();
 //鼠标按下滑动过程：鼠标按下+鼠标移动+鼠标抬起
 class zButton {
   //按钮类
@@ -68,13 +70,9 @@ class zButton {
     //取绑鼠标监听事件
     document.removeEventListener("mousemove", this.moveFunBind);
     this.moveFunBind = null;
-    if (
-      getMousePos().x > 570 &&
-      getMousePos().x < 1000 &&
-      getMousePos().y > 0 &&
-      getMousePos().y < 370
-    ) {
-      console.log('@');
+    if (paintStore.isPlace) {
+      //可不可以移动
+      paintStore.isPlace = false;
       appContext.config.globalProperties.$mitt.emit("receiveComponents", {
         type: button.type,
         width: button.width,

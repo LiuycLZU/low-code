@@ -1,8 +1,8 @@
 <template>
-<!-- 画布中button -->
+  <!-- 画布中button -->
   <el-button
     type="primary"
-    class="absolution"
+    class="absolution noMarign"
     ref="pButtonDiv"
     @dblclick="attrEdit"
     >按钮</el-button
@@ -38,4 +38,9 @@ emitter.on("attrEditOk", (res) => {
   }
 });
 </script>
-<style scoped></style>
+<style scoped>
+.noMarign {
+  margin: 0;
+  padding: 0;
+}
+</style>

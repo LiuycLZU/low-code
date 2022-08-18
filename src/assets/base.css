@@ -11,3 +11,10 @@
 .absolution{
     position: absolute;
 }
+.relative{
+    position: relative;
+}
+.full{
+    height: 100%;
+    width: 100%;
+}

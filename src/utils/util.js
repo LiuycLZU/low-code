@@ -6,12 +6,19 @@ function getMousePos() {
   let y = e.pageY;
   return { x: x, y: y };
 }
-function returnStyle(styleName, objectstyleAtt) {
+function returnStyle(styleName, objectstyleAtt, style) {
   //传入一个样式名，后面是对象，样式属性，最后返回一个拼接好的字符串
-  let style = '';
+  styleHandle(objectstyleAtt, style);
+  let str = "";
   styleName.forEach((element) => {
-    style += element + ":" + objectstyleAtt[element] + "px;";
+    str += element + ":" + objectstyleAtt[element] + "px;";
   });
-  return style;
+  return str;
+}
+function styleHandle(objectstyleAtt, style) {
+  objectstyleAtt["top"] -= style.top;
+  objectstyleAtt["top"] = objectstyleAtt["top"].toFixed(0);
+  objectstyleAtt["left"] -= style.left;
+  objectstyleAtt["left"] = objectstyleAtt["left"].toFixed(0);
 }
 export { getMousePos, returnStyle };

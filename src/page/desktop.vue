@@ -8,11 +8,13 @@
       <zButton
     /></el-card>
     <!-- 画布栏 -->
-    <el-card class="paint">
+    <el-card class="paint" body-style="height:100%">
       <template #header>
-        <span class="alignLeft">画布</span>
-        <newPaint ref="newPaintRef" /> </template
-      ><zPaint
+        <div class="newPaint">
+          <p class="alignLeft">画布</p>
+          <newPaint  ref="newPaintRef" /></div
+      ></template>
+      <zPaint
     /></el-card>
     <!-- 编辑栏 -->
     <el-card class="attr">
@@ -23,7 +25,6 @@
 </template>
 <script>
 export default defineComponent({
-  components: { newPaint },
   name: "desktop",
 });
 </script>
@@ -57,5 +58,9 @@ let newPaintRef = ref(null);
   width: 100%;
   text-align: start;
   display: inline-block;
+}
+.newPaint {
+  display: flex;
+  justify-content:space-between;
 }
 </style>
