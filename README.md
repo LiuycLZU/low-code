@@ -1,2 +1,4 @@
 # low-code
-1
+`npm i`
+`npm run dev`
+实现了简单的逻辑
