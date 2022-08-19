@@ -6,16 +6,9 @@
 
 <script>
 import Toolbar from '@/components/Toolbar'
-import { listenGlobalKeyDown } from '@/utils/shortcutKey'
 
 export default {
     components: { Toolbar },
-
-    created() {
-        this.restore()
-        // 全局监听按键事件
-        listenGlobalKeyDown()
-    },
     methods: {
         restore() {
             // 用保存的数据恢复画布

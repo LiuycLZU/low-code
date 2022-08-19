@@ -37,8 +37,8 @@ li {
 /* 定义滚动条高宽及背景
  高宽分别对应横竖滚动条的尺寸 */
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 10px;
+    height: 10px;
 }
 
 /* 定义滚动条轨道

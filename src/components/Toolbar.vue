@@ -53,18 +53,19 @@ export default {
                 })
             }, 1000)
         },
+        // 打开预览框将数据渲染在框内
         preview(isScreenshot) {
             this.isScreenshot = isScreenshot
             this.isShowPreview = true
             this.$store.commit('setEditMode', 'preview')
         },
-
+        // 保存画布上的数据到本地
         save() {
             localStorage.setItem('canvasData', JSON.stringify(this.componentData))
             localStorage.setItem('canvasStyle', JSON.stringify(this.canvasStyleData))
             this.$message.success('保存成功')
         },
-
+        // 调整预览框状态
         handlePreviewChange() {
             this.isShowPreview = false
             this.$store.commit('setEditMode', 'edit')
@@ -73,12 +74,13 @@ export default {
 }
 </script>
 
+<!-- 标题栏样式 -->
 <style lang="scss" scoped>
 .toolbar {
     padding: 15px 10px;
     white-space: nowrap;
     overflow-x: auto;
-    background: #fff;
+    background: rgb(255, 255, 255);
     border-bottom: 1px solid #ddd;
 
 }

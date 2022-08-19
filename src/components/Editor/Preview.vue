@@ -11,6 +11,7 @@
                     height: changeStyleWithScale(canvasStyleData.height) + 'px',
                 }"
             >
+                <!-- 复制数据 -->
                 <ComponentWrapper
                     v-for="(item, index) in copyData"
                     :key="index"
