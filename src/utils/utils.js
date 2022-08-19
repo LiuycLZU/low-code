@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export function deepCopy(target) {
     if (typeof target == 'object') {
         const result = Array.isArray(target) ? [] : {}

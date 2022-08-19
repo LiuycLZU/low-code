@@ -1,11 +1,10 @@
 <template>
     <div>
         <div class="toolbar">
-
             <el-button style="margin-left: 10px;" @click="preview(false)">预览</el-button>
             <el-button @click="save">保存</el-button>
         </div>
-
+        
         <!-- 预览 -->
         <Preview v-if="isShowPreview" :is-screenshot="isScreenshot" @close="handlePreviewChange" />
     </div>
@@ -13,7 +12,7 @@
 
 <script>
 import Preview from '@/components/Editor/Preview'
-import { deepCopy, $ } from '@/utils/utils'
+import { deepCopy } from '@/utils/utils'
 
 export default {
     components: { Preview },

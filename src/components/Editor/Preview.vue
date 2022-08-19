@@ -4,14 +4,18 @@
         <el-button v-else class="close" @click="htmlToImage">确定</el-button>
         <div class="canvas-container">
             <div
-                class="canvas"
+                class="canvas" 
                 :style="{
                     ...getCanvasStyle(canvasStyleData),
                     width: changeStyleWithScale(canvasStyleData.width) + 'px',
                     height: changeStyleWithScale(canvasStyleData.height) + 'px',
                 }"
             >
-
+                <ComponentWrapper
+                    v-for="(item, index) in copyData"
+                    :key="index"
+                    :config="item"
+                />
             </div>
         </div>
     </div>
