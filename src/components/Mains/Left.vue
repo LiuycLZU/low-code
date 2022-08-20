@@ -13,13 +13,13 @@ export default {
 
 <style scoped>
 .left {
-  width: 17%;
+  width: 20%;
   height: 100%;
-  border: 1px solid red;
+  background-color: aquamarine;
   float: left;
 }
 .LeftHeader {
-  width: 98%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   background: aquamarine;

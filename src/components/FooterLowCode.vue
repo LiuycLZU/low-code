@@ -1,14 +1,14 @@
 <template>
   <div class="footer">
-    <Bye/>
+    <h1>{{msg}}</h1>
   </div>
 </template>
 
 <script>
-import Bye from "@/components/Footers/Bye";
+
 export default {
-  components:{
-    Bye
+  data() {
+    return {msg: '我找的bug都队'}
   }
 }
 </script>
@@ -17,7 +17,10 @@ export default {
 .footer {
   width: 100%;
   height: 100px;
-  line-height: 100px;
   background-color: #288da4;
+}
+h1{
+  text-align: center;
+  margin: 0 auto;
 }
 </style>

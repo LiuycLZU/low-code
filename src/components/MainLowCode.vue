@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div class="main">
     <Left/>
     <Middle/>
     <Right/>
@@ -8,30 +8,22 @@
 
 <script>
 import Left from "@/components/Mains/Left";
-import Right from "@/components/Mains/Right";
 import Middle from "@/components/Mains/Middle";
+import Right from "@/components/Mains/Right";
 
 export default {
   components: {
     Left,
-    Right,
     Middle,
-  }
+    Right,
+  },
 }
 </script>
 
 <style scoped>
-#main {
+.main {
   height: 650px;
   border: 1px solid #ece6e6;
 }
-/*.left{*/
-/*  width: 20%;*/
-/*}*/
-/*.middle{*/
-/*  width: 60%;*/
-/*}*/
-/*.right{*/
-/*  width: 20%;*/
-/*}*/
+
 </style>
