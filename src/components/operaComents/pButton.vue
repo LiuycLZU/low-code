@@ -5,6 +5,7 @@
     class="absolution noMarign"
     ref="pButtonDiv"
     @dblclick="attrEdit"
+    
     >按钮</el-button
   >
 </template>
@@ -19,6 +20,9 @@ import { defineComponent, ref, getCurrentInstance } from "vue";
 import emitter from "@/utils/mitt.js";
 let { props } = getCurrentInstance();
 let pButtonDiv = ref(null);
+//拖动
+function comZoom(){}
+//双击函数
 function attrEdit() {
   let style = pButtonDiv.value.ref.style;
   let attrStyle = {};
@@ -29,6 +33,7 @@ function attrEdit() {
   attrStyle["buttonId"] = props.buttonId;
   emitter.emit("attrEdit", attrStyle);
 }
+//接受属性变化
 emitter.on("attrEditOk", (res) => {
   if (res.buttonId === props.buttonId) {
     let style = pButtonDiv.value.ref.style;

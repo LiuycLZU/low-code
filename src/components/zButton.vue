@@ -70,6 +70,7 @@ class zButton {
     //取绑鼠标监听事件
     document.removeEventListener("mousemove", this.moveFunBind);
     this.moveFunBind = null;
+    console.log(paintStore.isPlace);
     if (paintStore.isPlace) {
       //可不可以移动
       paintStore.isPlace = false;

@@ -9,10 +9,16 @@
   >
     <el-form v-model="from">
       <el-form-item label="画布长：" label-width="100px">
-        <el-input @input="from.length=from.length.replace(/\D/g,'')"  v-model="from.length" />
+        <el-input
+          @input="from.length = from.length.replace(/\D/g, '')"
+          v-model="from.length"
+        />
       </el-form-item>
       <el-form-item label="画布宽：" label-width="100px">
-        <el-input @input="from.length=from.length.replace(/\D/g,'')"  v-model="from.width" />
+        <el-input
+          @input="from.length = from.length.replace(/\D/g, '')"
+          v-model="from.width"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -32,11 +38,19 @@ export default defineComponent({
 import { defineComponent, reactive, ref } from "vue";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
+import { ElMessage } from "element-plus";
 let dialogFormVisible = ref(false);
 let from = reactive({ length: "", width: "" });
 //返回画布数据
 const paintStore = usePaintStore();
 function onsubmit() {
+  if (from.width === "" && from.length === "") {
+    ElMessage({
+      message: "请填写完整",
+      type: "warning",
+    });
+    return 0;
+  }
   paintStore.width = from.width;
   paintStore.length = from.length;
   dialogFormVisible.value = false;

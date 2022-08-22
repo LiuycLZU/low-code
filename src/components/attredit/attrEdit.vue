@@ -12,7 +12,7 @@
       /></el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确定</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="delect">删除</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -35,5 +35,6 @@ emitter.on("attrEdit", (res) => {
 function onSubmit() {
   emitter.emit("attrEditOk",form);
 }
+function delect(){}
 </script>
 <style scoped></style>
