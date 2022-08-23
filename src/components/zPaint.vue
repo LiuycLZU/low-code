@@ -30,6 +30,7 @@ import {
   onMounted,
 } from "vue";
 import { returnStyle } from "@/utils/util.js";
+import { initmouse } from "@/utils/zoom.js";
 import pButton from "@/components/operaComents/pButton.vue";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
@@ -57,7 +58,6 @@ function receiveComponents(res) {
       style: rStyle, //style
     });
   }
-  console.log(comArray);
 }
 function paintMoseUp() {
   paintStore.isPlace = true;
@@ -73,16 +73,13 @@ onMounted(() => {
     let distance = e.deltaY;
     let style = paintDiv.value.style;
     if (distance < 0) {
-      console.log("鼠标滚轮向下放大---------");
       let scal = (
         parseFloat(style.scale === "" ? 1 : style.scale) + 0.01
       ).toFixed(2);
-      console.log("放大系数: " + scal);
       style.scale = scal;
       style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效
       style.transformOrigin = "50% 50%";
     } else {
-      console.log("鼠标滚轮向上缩小++++++++++");
       let scal = style.scale === "" ? 1 : style.scale;
       if (scal == 0.01) {
         scal = 0.01;
@@ -90,7 +87,6 @@ onMounted(() => {
       } else {
         scal = (scal - 0.01).toFixed(2);
       }
-      console.log("缩小系数: " + scal);
       style.scale = scal;
       style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效。
       style.transformOrigin = "50% 50%";
@@ -102,6 +98,8 @@ onMounted(() => {
     return false;
   }
   paintCon.value.addEventListener("mousewheel", paintZoom);
+  //初始化组件移动容器
+  initmouse(paintDiv.value)
 });
 </script>
 <style scoped>

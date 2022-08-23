@@ -5,7 +5,6 @@
     class="absolution noMarign"
     ref="pButtonDiv"
     @dblclick="attrEdit"
-    
     >按钮</el-button
   >
 </template>
@@ -16,12 +15,21 @@ export default defineComponent({
 });
 </script>
 <script setup>
-import { defineComponent, ref, getCurrentInstance } from "vue";
+import {
+  defineComponent,
+  ref,
+  getCurrentInstance,
+  onMounted,
+  nextTick,
+} from "vue";
 import emitter from "@/utils/mitt.js";
+import { mouse } from "@/utils/zoom.js";
+import { getMousePos } from "@/utils/util.js";
 let { props } = getCurrentInstance();
 let pButtonDiv = ref(null);
+
 //拖动
-function comZoom(){}
+function comZoom() {}
 //双击函数
 function attrEdit() {
   let style = pButtonDiv.value.ref.style;
@@ -29,7 +37,6 @@ function attrEdit() {
   for (let i = 0; style[i] != undefined; i++) {
     attrStyle[style[i]] = style[style[i]];
   }
-  console.log(props);
   attrStyle["buttonId"] = props.buttonId;
   emitter.emit("attrEdit", attrStyle);
 }
@@ -41,6 +48,25 @@ emitter.on("attrEditOk", (res) => {
       style[style[i]] = res[style[i]];
     }
   }
+});
+let time = Date.now();
+function moveFun(e, optionDom, paint) {
+  //移动按钮，见第四行
+  if (Date.now() - time < 50) {
+    //节流
+    return;
+  }
+  time = Date.now();
+  console.log(getMousePos());
+  console.log(e.y, e.x);
+  nextTick(() => {
+    optionDom.style.top = e.y - paint.getBoundingClientRect().y + "px";
+    optionDom.style.left = e.x - paint.getBoundingClientRect().x + "px";
+  });
+}
+onMounted(() => {
+  let m = new mouse(pButtonDiv.value.ref, moveFun);
+  m.initZoom();
 });
 </script>
 <style scoped>

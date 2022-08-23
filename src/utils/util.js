@@ -75,4 +75,19 @@ function banZoom() {
     { passive: false }
   );
 }
-export { getMousePos, returnStyle, banZoom };
+function deepClone(target, cache = new WeakMap()) {
+  if (target === null || typeof target !== "object") {
+    return target;
+  }
+  if (cache.get(target)) {
+    // 避免循环引用
+    return target;
+  }
+  const copy = Array.isArray(target) ? [] : {};
+  cache.set(target, copy);
+  Object.keys(target).forEach(
+    (key) => (copy[key] = deepClone(target[key], cache))
+  );
+  return copy;
+}
+export { getMousePos, returnStyle, banZoom, deepClone };
