@@ -36,4 +36,5 @@ export default defineConfig({
     hmr: true,
     usePolling: true,
   },
+  base: "./",
 });

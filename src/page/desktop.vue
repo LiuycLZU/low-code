@@ -13,7 +13,11 @@
         <div class="newPaint">
           <p class="alignLeft">画布</p>
           <el-button class="mrs" @click="saveData">保存</el-button>
-          <el-button class="mrs" @click="openPreview">预览</el-button>
+          <el-tooltip content="别忘记保存了哦，ヾ(๑╹ヮ╹๑)ﾉ"
+            ><el-button class="mrs" @click="openPreview"
+              >预览</el-button
+            ></el-tooltip
+          >
           <newPaint ref="newPaintRef" /></div
       ></template>
       <zPaint
@@ -32,17 +36,23 @@ export default defineComponent({
 </script>
 <script setup>
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import zButton from "@/components/zButton.vue";
 import zPaint from "@/components/zPaint.vue";
 import attrEdit from "@/components/attredit/attrEdit.vue";
 import newPaint from "@/components/operaComents/newPaint.vue";
-import Toolbar from "@/components/Toolbar/Toolbar.vue";
 import { banZoom } from "@/utils/util.js";
+import emiter from "@/utils/mitt.js"
 banZoom();
+const router1 = useRouter();
 let newPaintRef = ref(null);
 //保存数据
-function saveData(){
-    emiter.emit("preview");
+function saveData() {
+  emiter.emit("preview");
+}
+//预览事件
+function openPreview() {
+  router1.push("preview");
 }
 </script>
 <style scoped>

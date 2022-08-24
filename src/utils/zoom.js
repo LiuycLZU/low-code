@@ -27,6 +27,9 @@ function mouse(optionDom,moveFun) {
     paint.removeEventListener("mouseup", this.mouseUpFunBind);
   }
   this.initZoom =function() {
+    if(paint === undefined){
+      return false;
+    }  
     this.mouseDownFunBind = this.mouseDownFun.bind(this);
     this.mouseMoveFunBind = this.mouseMoveFun.bind(this);
     this.mouseUpFunBind = this.mouseUpFun.bind(this);
@@ -35,6 +38,9 @@ function mouse(optionDom,moveFun) {
   }
 }
 function initmouse(paintDiv) {
+  if(paint === undefined){
+    return false;
+  }  
   paint = paintDiv;
 }
 export { mouse, initmouse };

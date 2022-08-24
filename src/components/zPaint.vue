@@ -110,9 +110,12 @@ emiter.on("paintOk", () => {
   paintStore.pageLeft = getElementLeft(paintDiv.value);
   paintStore.pageTop = getElementTop(paintDiv.value);
 });
-//用户点击预览，将数据存到localstorge
+//用户点击保存，将数据存到localstorge
 emiter.on("preview", () => {
   setdata("domData", comArray);
+  ElMessage({
+    message:"保存成功",
+    type:"success"});
 });
 </script>
 <style scoped>
