@@ -20,11 +20,12 @@ export default defineComponent({
 </script>
 <script setup>
 import { defineComponent, ref } from "vue";
+import emiter  from "../../utils/mitt.js";
 import Preview from "@/components/Toolbar/Preview.vue";
 let isShowPreview = ref(false);
 function openPreview() {
   isShowPreview.value = true;
-}
+} 
 </script>
 
 <!-- 标题栏样式 -->

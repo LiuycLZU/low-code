@@ -1,7 +1,4 @@
 <template>
-  <div class="home">
-    <Toolbar />
-  </div>
   <div class="center">
     <!-- 组件栏 -->
     <el-card class="components">
@@ -15,6 +12,8 @@
       <template #header>
         <div class="newPaint">
           <p class="alignLeft">画布</p>
+          <el-button class="mrs" @click="saveData">保存</el-button>
+          <el-button class="mrs" @click="openPreview">预览</el-button>
           <newPaint ref="newPaintRef" /></div
       ></template>
       <zPaint
@@ -37,10 +36,14 @@ import zButton from "@/components/zButton.vue";
 import zPaint from "@/components/zPaint.vue";
 import attrEdit from "@/components/attredit/attrEdit.vue";
 import newPaint from "@/components/operaComents/newPaint.vue";
-import Toolbar from "@/components/Toolbar/Toolbar.vue"
+import Toolbar from "@/components/Toolbar/Toolbar.vue";
 import { banZoom } from "@/utils/util.js";
 banZoom();
 let newPaintRef = ref(null);
+//保存数据
+function saveData(){
+    emiter.emit("preview");
+}
 </script>
 <style scoped>
 .center {
