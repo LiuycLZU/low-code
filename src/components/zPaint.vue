@@ -78,7 +78,8 @@ onMounted(() => {
       ).toFixed(2);
       style.scale = scal;
       style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效
-      style.transformOrigin = "50% 50%";
+      style.transformOrigin = "0 0";
+      paintStore.scale = scal;
     } else {
       let scal = style.scale === "" ? 1 : style.scale;
       if (scal == 0.01) {
@@ -89,7 +90,8 @@ onMounted(() => {
       }
       style.scale = scal;
       style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效。
-      style.transformOrigin = "50% 50%";
+      style.transformOrigin = "0 0";
+      paintStore.scale = scal;
     }
     if (e.preventDefault) {
       /*FF 和 Chrome*/
@@ -99,7 +101,7 @@ onMounted(() => {
   }
   paintCon.value.addEventListener("mousewheel", paintZoom);
   //初始化组件移动容器
-  initmouse(paintDiv.value)
+  initmouse(paintDiv.value);
 });
 </script>
 <style scoped>

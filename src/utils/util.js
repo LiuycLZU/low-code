@@ -1,3 +1,4 @@
+import { usePaintStore } from "@/stores/paint.js";
 //工具函数
 function getMousePos() {
   //获得鼠标位置
@@ -19,10 +20,18 @@ function returnStyle(styleName, objectstyleAtt, style) {
   }
 }
 function styleHandle(objectstyleAtt, style) {
+  let paintStore = usePaintStore();
   objectstyleAtt["top"] -= style.top;
   objectstyleAtt["top"] = objectstyleAtt["top"].toFixed(0);
+  console.log(paintStore.scale);
+  console.log(objectstyleAtt["top"]);
+  objectstyleAtt["top"] = (objectstyleAtt["top"] / paintStore.scale).toFixed(0);
+  console.log(objectstyleAtt["top"]);
   objectstyleAtt["left"] -= style.left;
   objectstyleAtt["left"] = objectstyleAtt["left"].toFixed(0);
+  console.log(objectstyleAtt["left"]);
+  objectstyleAtt["left"] =  (objectstyleAtt["left"] / paintStore.scale).toFixed(0);
+  console.log(objectstyleAtt["left"]);
   if (
     objectstyleAtt["top"] < 0 ||
     objectstyleAtt["top"] > Number(style.width) ||

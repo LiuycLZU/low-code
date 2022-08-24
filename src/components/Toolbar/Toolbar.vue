@@ -2,7 +2,7 @@
   <div>
     <div class="toolbar">
       <el-button style="margin-left: 10px" @click="openPreview">预览</el-button>
-      <el-button>保存</el-button>
+      <a href="#" download="index.html"><el-button>保存</el-button></a>
     </div>
 
     <!-- 预览 -->
