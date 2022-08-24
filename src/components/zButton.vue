@@ -87,13 +87,14 @@ class zButton {
     console.log(paintStore.isPlace);
     if (paintStore.isPlace) {
       //可不可以移动
-      paintStore.isPlace = false;
+      paintStore.isPlace = false; 
+      this.moveFunPlus();
       appContext.config.globalProperties.$mitt.emit("receiveComponents", {
-        type: button.type,
-        width: button.width,
-        height: button.height,
-        top: button.top,
-        left: button.left,
+        type: this.type,
+        width: this.width,
+        height: this.height,
+        top: buttothisn.top,
+        left: this.left,
       });
     }
     this.reset();
@@ -105,6 +106,7 @@ class zButton {
     document.addEventListener("mouseup", this.onmouseup);
   }
   componentReleaseOver() {
+   
     //取绑鼠标抬起事件
     document.removeEventListener("mouseup", this.onmouseup);
   }
