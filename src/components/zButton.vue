@@ -93,7 +93,7 @@ class zButton {
         type: this.type,
         width: this.width,
         height: this.height,
-        top: buttothisn.top,
+        top: this.top,
         left: this.left,
       });
     }
