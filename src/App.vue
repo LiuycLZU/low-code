@@ -1,23 +1,3 @@
-<script  lang="ts">
-
-
-import headView from './views/headViews.vue';
-import leftView from './views/leftViews.vue';
-import centerView from './views/centerViews.vue';
-import rightView from './views/rightViews.vue';
-
-export default {
-  name: 'LowCode',
-  components: {
-    headView,
-    leftView,
-    centerView,
-    rightView
-  }
-}
-
-</script>
-
 <template>
   <div id="app">
     <head-view></head-view>
@@ -29,10 +9,26 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<script>
+import headView from './views/headViews.vue';
+import leftView from './views/leftViews.vue';
+import centerView from './views/centerViews.vue';
+import rightView from './views/rightViews.vue';
+
+export default {
+  name: 'App',
+  components: {
+    headView,
+    leftView,
+    centerView,
+    rightView
+  }
+}
+</script>
+
+<style lang="less">
 .content-box{
   display: flex;
   height: calc(100vh - 60px);
 }
-
 </style>

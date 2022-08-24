@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style scoped >
+<style scoped lang="less">
 .wrapper{
     flex:1;
     background-color: antiquewhite;

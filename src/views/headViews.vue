@@ -2,7 +2,7 @@
     <div class="wrapper">
         <h2>刘怡岑小组</h2>
         <div class="btn-box">
-            <div class="btn active" @click='handleClickActions'>保存</div>
+            <div class="btn active" @click="saveData">保存</div>
             <div class="btn ">预览</div>
             <div class="btn ">发布</div>
         </div>
@@ -11,15 +11,10 @@
 </template>
 
 <script>
-import {saveStore} from '../store/savecp'
-const savestore = saveStore();
-const handleClickActions = ()=>{
-  savestore.pushToAllInfo()
-}
-
+import {saveData} from "../utils/localData";
 export default {
     components:{
-
+        saveData
     },
     props:{
 
@@ -44,7 +39,7 @@ export default {
 }
 </script>
 
-<style scoped >
+<style scoped lang="less">
     .wrapper{
         background-color:rgb(5, 244, 152);
         height: 60px;
@@ -53,23 +48,22 @@ export default {
         align-items: center;
         color: white;
         padding: 0 15px;
-    }
-    .btn-box{
-        display: flex;
-        width: 180px;
-        justify-content: space-around;
-    }
-    .btn{
-        background-color: white;
-        color: black;
-        font-size: 13px;
-        padding: 2px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .btn.active{
+        .btn-box{
+            display: flex;
+            width: 180px;
+            justify-content: space-around;
+            .btn{
+                background-color: white;
+                color: black;
+                font-size: 13px;
+                padding: 2px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                &.active{
                     
-        background-color: rgb(8, 169, 244);
+                    background-color: rgb(8, 169, 244);
+                }
+            }
+        }
     }
-            
 </style>
