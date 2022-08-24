@@ -39,6 +39,7 @@ import { defineComponent, reactive, ref } from "vue";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
+import emiter from "@/utils/mitt.js";
 let dialogFormVisible = ref(false);
 let from = reactive({ length: "", width: "" });
 //返回画布数据
@@ -51,6 +52,7 @@ function onsubmit() {
     });
     return 0;
   }
+  emiter.emit("paintOk");
   paintStore.width = from.width;
   paintStore.length = from.length;
   dialogFormVisible.value = false;

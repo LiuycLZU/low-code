@@ -8,6 +8,8 @@ export const usePaintStore = defineStore("paint", {
     top: "",
     left: "",
     scale: 1,
-  }), //isplace 是否可以放置，false，不能；true，可以。scale，缩放倍数
+    pageTop: 184,
+    pageLeft: 353,
+  }), //isplace 是否可以放置，false，不能；true，可以。scale，缩放倍数,pageTop 相对于文档的
   actions: {},
 });

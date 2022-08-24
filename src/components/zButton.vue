@@ -55,7 +55,7 @@ class zButton {
     nextTick(() => {
       this.top = getMousePos().y;
       this.left = getMousePos().x;
-      // console.log(this.top,this.left);
+      console.log(this.top,this.left);
       let style = zButtonDiv.value.ref.style;
       style.display = "inline-flex";
       style.top = this.top + "px";

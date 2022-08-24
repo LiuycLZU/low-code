@@ -5,7 +5,9 @@ function getMousePos() {
   let e = window.event;
   let x = e.pageX;
   let y = e.pageY;
-  return { x: x, y: y };
+  let cx = e.clientX;
+  let cy = e.clientY;
+  return { x: x, y: y, cx: cx, cy: cy };
 }
 function returnStyle(styleName, objectstyleAtt, style) {
   //传入一个样式名，后面是对象，样式属性，最后返回一个拼接好的字符串
@@ -20,17 +22,21 @@ function returnStyle(styleName, objectstyleAtt, style) {
   }
 }
 function styleHandle(objectstyleAtt, style) {
-  let paintStore = usePaintStore();
-  objectstyleAtt["top"] -= style.top;
+  console.log("style", style);
+  
+  let paintStore = usePaintStore();console.log("objectstyleAtt", objectstyleAtt, paintStore);
+  objectstyleAtt["top"] -= Number(paintStore.pageTop) ;
   objectstyleAtt["top"] = objectstyleAtt["top"].toFixed(0);
   console.log(paintStore.scale);
   console.log(objectstyleAtt["top"]);
   objectstyleAtt["top"] = (objectstyleAtt["top"] / paintStore.scale).toFixed(0);
   console.log(objectstyleAtt["top"]);
-  objectstyleAtt["left"] -= style.left;
+  objectstyleAtt["left"] -= Number(paintStore.pageLeft);
   objectstyleAtt["left"] = objectstyleAtt["left"].toFixed(0);
   console.log(objectstyleAtt["left"]);
-  objectstyleAtt["left"] =  (objectstyleAtt["left"] / paintStore.scale).toFixed(0);
+  objectstyleAtt["left"] = (objectstyleAtt["left"] / paintStore.scale).toFixed(
+    0
+  );
   console.log(objectstyleAtt["left"]);
   if (
     objectstyleAtt["top"] < 0 ||
@@ -99,4 +105,31 @@ function deepClone(target, cache = new WeakMap()) {
   );
   return copy;
 }
-export { getMousePos, returnStyle, banZoom, deepClone };
+//获取element的x坐标
+function getElementLeft(element) {
+  var actualLeft = element.offsetLeft;
+  var current = element.offsetParent;
+  while (current !== null) {
+    actualLeft += current.offsetLeft;
+    current = current.offsetParent;
+  }
+  return actualLeft;
+}
+//获取element的y坐标
+function getElementTop(element) {
+  var actualTop = element.offsetTop;
+  var current = element.offsetParent;
+  while (current !== null) {
+    actualTop += current.offsetTop;
+    current = current.offsetParent;
+  }
+  return actualTop;
+}
+export {
+  getMousePos,
+  returnStyle,
+  banZoom,
+  deepClone,
+  getElementLeft,
+  getElementTop,
+};

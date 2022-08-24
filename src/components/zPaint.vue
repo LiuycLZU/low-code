@@ -29,12 +29,14 @@ import {
   ref,
   onMounted,
 } from "vue";
-import { returnStyle } from "@/utils/util.js";
+import { returnStyle, getElementLeft, getElementTop } from "@/utils/util.js";
+import { setdata } from "@/utils/localData.js";
 import { initmouse } from "@/utils/zoom.js";
 import pButton from "@/components/operaComents/pButton.vue";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
+import emiter from "@/utils/mitt.js";
 const paintStore = usePaintStore();
 let paintDiv = ref(null); //画布
 let paintCon = ref(null); //画布容器
@@ -102,6 +104,15 @@ onMounted(() => {
   paintCon.value.addEventListener("mousewheel", paintZoom);
   //初始化组件移动容器
   initmouse(paintDiv.value);
+});
+//画布生成成功
+emiter.on("paintOk", () => {
+  paintStore.pageLeft = getElementLeft(paintDiv.value);
+  paintStore.pageTop = getElementTop(paintDiv.value);
+});
+//用户点击预览，将数据存到localstorge
+emiter.on("preview", () => {
+  setdata("domData", comArray);
 });
 </script>
 <style scoped>
