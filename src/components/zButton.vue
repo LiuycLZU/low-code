@@ -50,6 +50,20 @@ class zButton {
       style.width = this.width + "px";
     });
   }
+  moveFunPlus() {
+    //没有节流的移动方法
+    nextTick(() => {
+      this.top = getMousePos().y;
+      this.left = getMousePos().x;
+      // console.log(this.top,this.left);
+      let style = zButtonDiv.value.ref.style;
+      style.display = "inline-flex";
+      style.top = this.top + "px";
+      style.left = this.left + "px";
+      style.height = this.height + "px";
+      style.width = this.width + "px";
+    });
+  }
   reset() {
     nextTick(() => {
       let style = zButtonDiv.value.ref.style;
