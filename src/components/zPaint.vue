@@ -28,6 +28,7 @@ import {
   nextTick,
   ref,
   onMounted,
+  toRaw,
 } from "vue";
 import { returnStyle, getElementLeft, getElementTop } from "@/utils/util.js";
 import { setdata } from "@/utils/localData.js";
@@ -114,7 +115,8 @@ emiter.on("paintOk", () => {
 });
 //用户点击保存，将数据存到localstorge
 emiter.on("preview", () => {
-  setdata("domData", comArray);
+  setdata("domData", toRaw(comArray.value));
+  console.log(toRaw(comArray.value));
   ElMessage({
     message: "保存成功",
     type: "success",

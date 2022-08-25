@@ -12,7 +12,6 @@ function mouse(optionDom, moveFun) {
   };
   this.mouseMoveFun = function (e) {
     //鼠标移动事件
-    console.log("move");
     this.moveFun(e, this.optionDom, paint);
   };
   this.mouseUpFun = function () {
@@ -27,7 +26,6 @@ function mouse(optionDom, moveFun) {
     paint.removeEventListener("mouseup", this.mouseUpFunBind);
   };
   this.initZoom = function () {
-    console.log("paint", paint);
     if (paint === undefined) {
       return false;
     }
