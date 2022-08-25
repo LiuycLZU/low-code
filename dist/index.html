@@ -1,94 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .box {
-            width: 600px;
-            height: 600px;
-            border: 3px solid red;
-            overflow: auto;
-            margin-top: 20px;
-        }
- 
-        .inner-box {
-            width: 200px;
-            height: 200px;
-            background: pink;
-            border: 2px solid green;
-            margin-left: 100px;
-            margin-top: 100px;
-        }
- 
-        .sm-box {
-            width: 100px;
-            height: 100px;
-            background: #b1dfbb;
-            border: 1px solid blue;
-        }
-    </style>
-</head>
-<body>
-<button id="restoryBtn" onclick="centerScale();">还原</button>
-<div class="box" id="box">
-    <div id="div1" class="---box">
-        <div class="sm-box"></div>
-        <p>缩放区域,在红色盒子外鼠标滚动无效</p>
-    </div>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta
+      name="viewport"
+      content="
+      width=device-width,
+      initial-scale=1.0,
+      minimum-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no"
+    >
+    <title>lowCode</title>
+    <script type="module" crossorigin src="./assets/index.c90b322a.js"></script>
+    <link rel="stylesheet" href="./assets/index.04abf5bd.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    
+  </body>
 </html>
-<script type="text/javascript">
-    var oDiv = document.getElementById('div1');
-    var box = document.getElementById('box');
-    var scal = 1;
- 
-    function onMouseWheel(ev) {/*当鼠标滚轮事件发生时，执行一些操作*/
-        var ev = ev || window.event;
-        var down = true; // 定义一个标志，当滚轮向下滚时，执行一些操作
-        down = ev.wheelDelta ? ev.wheelDelta < 0 : ev.detail > 0;
-        if (down) {
-            console.log('鼠标滚轮向下放大---------')
-            scal = (parseFloat(scal) + 0.01).toFixed(2);
-            console.log("放大系数: " + scal)
-            oDiv.style.transform = "scale(" + scal + ")";    //scale()在这里要使用拼接的方式才能生效
-            oDiv.style.transformOrigin = '0 0';
-        } else {
-            console.log('鼠标滚轮向上缩小++++++++++')
-            if (scal == 0.01) {
-                scal = 0.01
-                return
-            } else {
-                scal = (parseFloat(scal) - 0.01).toFixed(2);
-            }
-            console.log("缩小系数: " + scal)
-            oDiv.style.transform = "scale(" + scal + ")";    //scale()在这里要使用拼接的方式才能生效。
-            oDiv.style.transformOrigin = '0 0';
-        }
-        if (ev.preventDefault) {/*FF 和 Chrome*/
-            ev.preventDefault();// 阻止默认事件
-        }
-        return false;
-    }
- 
-    addEvent(box, 'mousewheel', onMouseWheel);
-    addEvent(box, 'DOMMouseScroll', onMouseWheel);
- 
- 
-    function addEvent(obj, xEvent, fn) {
-        if (obj.attachEvent) {
-            obj.attachEvent('on' + xEvent, fn);
-        } else {
-            obj.addEventListener(xEvent, fn, false);
-        }
-    }
- 
-    function centerScale() {
-        console.log("还原------")
-        scal = 1;
-        oDiv.style.transform = "scale(" + scal + ")";
-        oDiv.style.transformOrigin = '0 0';
-        // $("#drag").css({"transform": "scale(" + scal + ")","transformOrigin": "0 0"});//jquery写法
-    }
-</script>

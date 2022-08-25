@@ -6,7 +6,7 @@ import { getMousePos } from "@/utils/util.js";
 import emitter from "@/utils/mitt.js";
 import { usePaintStore } from "@/stores/paint.js";
 
-class comZoom {
+class ComZoom {
   //按钮类
   constructor(
     type,
@@ -22,7 +22,6 @@ class comZoom {
     this.top = top;
     this.left = left;
     this.dom = dom;
-    console.log(dom);
   }
   moveFun() {
     //移动按钮，见第四行
@@ -34,7 +33,6 @@ class comZoom {
     nextTick(() => {
       this.top = getMousePos().y;
       this.left = getMousePos().x;
-      // console.log(this.top,this.left);
       let style = this.dom.style;
       style.display = "inline-flex";
       style.top = this.top + "px";
@@ -46,15 +44,16 @@ class comZoom {
   moveFunPlus() {
     //没有节流的移动方法
     nextTick(() => {
+      console.log("movepl");
       this.top = getMousePos().y;
       this.left = getMousePos().x;
-      console.log(this.top, this.left);
       let style = this.dom.style;
       style.display = "inline-flex";
       style.top = this.top + "px";
       style.left = this.left + "px";
       style.height = this.height + "px";
       style.width = this.width + "px";
+      console.log(style);
     });
   }
   reset() {
@@ -65,7 +64,6 @@ class comZoom {
       style.left = 0 + "px";
       style.height = 20 + "px";
       style.width = 40 + "px";
-      style.display = "none";
     });
   }
   componentMove() {
@@ -73,23 +71,28 @@ class comZoom {
     this.moveFunBind = this.moveFun.bind(this);
     document.addEventListener("mousemove", this.moveFunBind);
   }
-  componentStop() {
+  async componentStop() {
     //取绑鼠标监听事件
     let paintStore = usePaintStore();
     document.removeEventListener("mousemove", this.moveFunBind);
+    await this.moveFunPlus();
     this.moveFunBind = null;
     if (paintStore.isPlace) {
       //可不可以移动
       paintStore.isPlace = false;
-      this.moveFunPlus();
-
-      emitter.emit("receiveComponents", {
-        type: this.type,
-        width: this.width,
-        height: this.height,
-        top: this.top,
-        left: this.left,
-      });
+      console.log("dom", this.dom.style, Object.keys(this.dom.style).length);
+      if (Number(Object.keys(this.dom.style).length) < 30) {
+        console.log("@@@@");
+        emitter.emit("receiveComponents", this.dom.style);
+      } else {
+        emitter.emit("receiveComponents", {
+          type: this.type,
+          width: this.width,
+          height: this.height,
+          top: this.top,
+          left: this.left,
+        });
+      }
     }
     this.reset();
     this.componentReleaseOver();
@@ -104,4 +107,4 @@ class comZoom {
     document.removeEventListener("mouseup", this.onmouseup);
   }
 }
-export { comZoom };
+export { ComZoom };

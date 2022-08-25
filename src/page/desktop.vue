@@ -5,8 +5,8 @@
       <template #header>
         <span class="alignLeft">组件</span>
       </template>
-      <zButton
-    /></el-card>
+      <comBarAll />
+    </el-card>
     <!-- 画布栏 -->
     <el-card class="paint" body-style="height:80%">
       <template #header>
@@ -37,12 +37,14 @@ export default defineComponent({
 <script setup>
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-import zButton from "@/components/comBar/zButton.vue";
+//js
+import { banZoom } from "@/utils/util.js";
+import emiter from "@/utils/mitt.js";
+//组件
+import comBarAll from "@/components/comBarAll.vue";
 import zPaint from "@/components/zPaint.vue";
 import attrEdit from "@/components/attredit/attrEdit.vue";
 import newPaint from "@/components/operaComents/newPaint.vue";
-import { banZoom } from "@/utils/util.js";
-import emiter from "@/utils/mitt.js"
 banZoom();
 const router1 = useRouter();
 let newPaintRef = ref(null);

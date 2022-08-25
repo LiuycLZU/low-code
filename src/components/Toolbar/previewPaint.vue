@@ -5,10 +5,16 @@
       :style="'width:' + length + 'px;height:' + width + 'px'"
     >
       <pButton
-        v-for="item in comArray"
+        v-for="item in components.button"
         :key="item.id"
         :style="item.style"
         :buttonId="item.id"
+      />
+      <pInput
+        v-for="item in components.input"
+        :key="item.id"
+        :style="item.style"
+        :id="item.id"
       />
     </div>
   </div>
@@ -19,16 +25,23 @@ export default defineComponent({
 });
 </script>
 <script setup>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, computed, reactive } from "vue";
 import { getdata } from "@/utils/localData.js";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
 const paintStore = usePaintStore();
 let { width, length } = storeToRefs(paintStore);
 let comArray = ref([]);
+let components = reactive({ button: [], input: [] });
 onMounted(() => {
   comArray.value = getdata("domData");
   console.log(comArray.value);
+});
+components.button = computed(() => {
+  return comArray.value.filter((item) => item.type === "zButton");
+});
+components.input = computed(() => {
+  return comArray.value.filter((item) => item.type === "zInput");
 });
 </script>
 <style scoped>

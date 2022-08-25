@@ -5,7 +5,6 @@
 .zButtonDefult{
     height: 10px;
     width: 20px;
-    position: absolute;
     display: none;
 }
 .absolution{
@@ -25,4 +24,7 @@
 .noMarign {
     margin: 0 !important;
     padding: 0 !important;
-  }
+}
+.positionFixed{
+    position: fixed;
+}

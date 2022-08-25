@@ -8,10 +8,16 @@
       :style="'width:' + length + 'px;height:' + width + 'px'"
     >
       <pButton
-        v-for="item in comArray"
+        v-for="item in components.button"
         :key="item.id"
         :style="item.style"
         :buttonId="item.id"
+      />
+      <pInput
+        v-for="item in components.input"
+        :key="item.id"
+        :styledom="item.style"
+        :id="item.id"
       />
     </div>
   </div>
@@ -29,11 +35,14 @@ import {
   ref,
   onMounted,
   toRaw,
+  computed,
+  reactive,
 } from "vue";
 import { returnStyle, getElementLeft, getElementTop } from "@/utils/util.js";
 import { setdata } from "@/utils/localData.js";
 import { initmouse } from "@/utils/zoom.js";
 import pButton from "@/components/operaComents/pButton.vue";
+import pInput from "@/components/operaComents/pInput.vue";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
@@ -42,6 +51,7 @@ const paintStore = usePaintStore();
 let paintDiv = ref(null); //画布
 let paintCon = ref(null); //画布容器
 let comArray = ref([]); //控制的数组
+let components = reactive({ button: [], input: [] });
 let { width, length } = storeToRefs(paintStore);
 //接受组件的函数
 function receiveComponents(res) {
@@ -52,15 +62,15 @@ function receiveComponents(res) {
   }
   style.length = paintStore.length;
   style.width = paintStore.width;
-  // paintStore.top = style.top;
-  // paintStore.left = style.left;
   let rStyle = returnStyle(["height", "width", "top", "left"], res, style);
   if (rStyle != false) {
     comArray.value.push({
       id: Date.now().valueOf(), //id
       style: rStyle, //style
+      type: res.type,
     });
   }
+  console.log("@",comArray);
   //初始化组件移动容器
   initmouse(paintDiv.value);
 }
@@ -122,7 +132,16 @@ emiter.on("preview", () => {
     type: "success",
   });
 });
+components.button = computed(() => {
+  return comArray.value.filter((item) => item.type === "zButton");
+});
+components.input = computed(() => {
+  return comArray.value.filter((item) => item.type === "zInput");
+});
 </script>
+
+
+
 <style scoped>
 .paintDiv {
   border: 1px dashed rgb(121, 187, 255);

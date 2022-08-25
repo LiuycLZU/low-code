@@ -11,45 +11,38 @@ function getMousePos() {
 }
 function returnStyle(styleName, objectstyleAtt, style) {
   //传入一个样式名，后面是对象，样式属性，最后返回一个拼接好的字符串
+  console.log(objectstyleAtt);
   if (styleHandle(objectstyleAtt, style)) {
-    let str = "";
-    styleName.forEach((element) => {
-      str += element + ":" + objectstyleAtt[element] + "px;";
-    });
-    return str;
+    let arr = {};
+    for (let i in objectstyleAtt) {
+      let floatNum = Number(objectstyleAtt[i]);
+      if (isNaN(floatNum)) {
+        arr[i] = objectstyleAtt[i] + "";
+      } else {
+        arr[i] = floatNum + "px";
+      }
+    }
+    return arr;
   } else {
     return false;
   }
 }
 function styleHandle(objectstyleAtt, style) {
-  console.log("style", style);
-
   let paintStore = usePaintStore();
-  // console.log(
-  //   "objectstyleAtt",
-  //   objectstyleAtt,
-  //   +paintStore.pageTop,
-  //   paintStore.pageLeft
-  // );
+  objectstyleAtt["top"] = parseFloat(objectstyleAtt["top"]);
+  objectstyleAtt["left"] = parseFloat(objectstyleAtt["left"]);
   objectstyleAtt["top"] -= Number(paintStore.pageTop);
   objectstyleAtt["top"] = objectstyleAtt["top"];
-  console.log("scal", paintStore.scale);
-  console.log(objectstyleAtt["top"]);
   objectstyleAtt["top"] = objectstyleAtt["top"] / paintStore.scale;
-  console.log(objectstyleAtt["top"]);
   objectstyleAtt["left"] -= Number(paintStore.pageLeft);
   objectstyleAtt["left"] = objectstyleAtt["left"];
-  console.log(objectstyleAtt["left"]);
   objectstyleAtt["left"] = objectstyleAtt["left"] / paintStore.scale;
-  console.log(objectstyleAtt["left"]);
   if (
     objectstyleAtt["top"] < 0 ||
     objectstyleAtt["top"] > Number(style.width) ||
     objectstyleAtt["left"] < 0 ||
     objectstyleAtt["left"] > Number(style.length)
   ) {
-    console.log(objectstyleAtt["top"], objectstyleAtt["left"]);
-    console.log(style.width, style.length);
     return false;
   }
   return true;
@@ -129,6 +122,17 @@ function getElementTop(element) {
   }
   return actualTop;
 }
+function arrToObject(arr) {
+  try {
+    let obj = {};
+    arr.forEach(i => {
+      obj[i.name] = i.value;
+    });
+    return arr;
+  } catch (error) {
+    return error;
+  }
+}
 export {
   getMousePos,
   returnStyle,
@@ -136,4 +140,5 @@ export {
   deepClone,
   getElementLeft,
   getElementTop,
+  arrToObject,
 };
