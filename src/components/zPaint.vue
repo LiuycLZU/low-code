@@ -67,7 +67,7 @@ function receiveComponents(res) {
 function paintMoseUp() {
   paintStore.isPlace = true;
 }
-getCurrentInstance().appContext.config.globalProperties.$mitt.on(
+emiter.on(
   //接受信息
   "receiveComponents",
   receiveComponents

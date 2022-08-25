@@ -33,9 +33,8 @@ onMounted(() => {
 </script>
 <style scoped>
 .paintDiv {
-  border-radius: 3px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgb(121, 187, 255);
+  background-color: rgba(236, 245, 255, 0.3);
 }
 .paintContainer {
   overflow: auto;

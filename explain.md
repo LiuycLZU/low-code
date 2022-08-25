@@ -1,0 +1,1 @@
+zButton --- 组件栏的button type

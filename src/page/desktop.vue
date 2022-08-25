@@ -37,7 +37,7 @@ export default defineComponent({
 <script setup>
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-import zButton from "@/components/zButton.vue";
+import zButton from "@/components/comBar/zButton.vue";
 import zPaint from "@/components/zPaint.vue";
 import attrEdit from "@/components/attredit/attrEdit.vue";
 import newPaint from "@/components/operaComents/newPaint.vue";
