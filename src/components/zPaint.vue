@@ -51,8 +51,8 @@ function receiveComponents(res) {
   }
   style.length = paintStore.length;
   style.width = paintStore.width;
-  paintStore.top = style.top;
-  paintStore.left = style.left;
+  // paintStore.top = style.top;
+  // paintStore.left = style.left;
   let rStyle = returnStyle(["height", "width", "top", "left"], res, style);
   if (rStyle != false) {
     comArray.value.push({
@@ -60,6 +60,8 @@ function receiveComponents(res) {
       style: rStyle, //style
     });
   }
+  //初始化组件移动容器
+  initmouse(paintDiv.value);
 }
 function paintMoseUp() {
   paintStore.isPlace = true;
@@ -79,7 +81,7 @@ onMounted(() => {
         parseFloat(style.scale === "" ? 1 : style.scale) + 0.01
       ).toFixed(2);
       style.scale = scal;
-      style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效
+      // style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效
       style.transformOrigin = "0 0";
       paintStore.scale = scal;
     } else {
@@ -91,7 +93,7 @@ onMounted(() => {
         scal = (scal - 0.01).toFixed(2);
       }
       style.scale = scal;
-      style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效。
+      // style.transform = "scale(" + scal + ")"; //scale()在这里要使用拼接的方式才能生效。
       style.transformOrigin = "0 0";
       paintStore.scale = scal;
     }
@@ -101,9 +103,9 @@ onMounted(() => {
     }
     return false;
   }
+  paintStore.pageLeft = getElementLeft(paintDiv.value);
+  paintStore.pageTop = getElementTop(paintDiv.value);
   paintCon.value.addEventListener("mousewheel", paintZoom);
-  //初始化组件移动容器
-  initmouse(paintDiv.value);
 });
 //画布生成成功
 emiter.on("paintOk", () => {
@@ -114,15 +116,15 @@ emiter.on("paintOk", () => {
 emiter.on("preview", () => {
   setdata("domData", comArray);
   ElMessage({
-    message:"保存成功",
-    type:"success"});
+    message: "保存成功",
+    type: "success",
+  });
 });
 </script>
 <style scoped>
 .paintDiv {
-  border-radius: 3px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgb(121, 187, 255);
+  background-color: rgba(236, 245, 255, 0.3);
 }
 .paintContainer {
   overflow: auto;

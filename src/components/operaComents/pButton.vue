@@ -24,8 +24,10 @@ import {
 } from "vue";
 import emitter from "@/utils/mitt.js";
 import { mouse } from "@/utils/zoom.js";
-import { getMousePos } from "@/utils/util.js";
+import { getMousePos, getElementLeft, getElementTop } from "@/utils/util.js";
+import { usePaintStore } from "@/stores/paint.js";
 let { props } = getCurrentInstance();
+let paintStore = usePaintStore();
 let pButtonDiv = ref(null);
 
 //拖动
@@ -58,10 +60,12 @@ function moveFun(e, optionDom, paint) {
   }
   time = Date.now();
   console.log(getMousePos());
-  console.log(e.y, e.x);
+  console.log(e);
   nextTick(() => {
-    optionDom.style.top = e.y - paint.getBoundingClientRect().y + "px";
-    optionDom.style.left = e.x - paint.getBoundingClientRect().x + "px";
+    optionDom.style.top =
+      (e.pageY - getElementTop(paint)) / paintStore.scale + "px";
+    optionDom.style.left =
+      (e.pageX - getElementLeft(paint)) / paintStore.scale + "px";
   });
 }
 onMounted(() => {
@@ -70,8 +74,4 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-.noMarign {
-  margin: 0;
-  padding: 0;
-}
 </style>

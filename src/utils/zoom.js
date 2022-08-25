@@ -1,46 +1,48 @@
 let paint;
-function mouse(optionDom,moveFun) {
+function mouse(optionDom, moveFun) {
   this.optionDom = optionDom;
   this.moveFun = moveFun;
-  this.mouseDownFun = function(that) {
-    console.log('down');
+  this.mouseDownFun = function (that) {
+    console.log("down");
     console.log(paint);
     console.dir(that);
     paint.addEventListener("mousemove", this.mouseMoveFunBind);
     paint.addEventListener("mouseup", this.mouseUpFunBind);
     paint.addEventListener("mouseleave", this.mouseLeaveFunBind);
-  }
+  };
   this.mouseMoveFun = function (e) {
     //鼠标移动事件
-    console.log('move');
+    console.log("move");
     this.moveFun(e, this.optionDom, paint);
-  }
+  };
   this.mouseUpFun = function () {
     paint.removeEventListener("mousemove", this.mouseMoveFunBind);
     paint.removeEventListener("mouseup", this.mouseUpFunBind);
     paint.removeEventListener("mouseleave", this.mouseLeaveFunBind);
-  }
+  };
 
   this.mouseLeaveFun = function (e) {
     paint.removeEventListener("mouseleave", this.mouseLeaveFunBind);
     paint.removeEventListener("mousemove", this.mouseMoveFunBind);
     paint.removeEventListener("mouseup", this.mouseUpFunBind);
-  }
-  this.initZoom =function() {
-    if(paint === undefined){
+  };
+  this.initZoom = function () {
+    console.log("paint", paint);
+    if (paint === undefined) {
       return false;
-    }  
+    }
     this.mouseDownFunBind = this.mouseDownFun.bind(this);
     this.mouseMoveFunBind = this.mouseMoveFun.bind(this);
     this.mouseUpFunBind = this.mouseUpFun.bind(this);
     this.mouseLeaveFunBind = this.mouseLeaveFun.bind(this);
-    this.optionDom.addEventListener("mousedown", this.mouseDownFunBind );
-  }
+    this.optionDom.addEventListener("mousedown", this.mouseDownFunBind);
+  };
 }
 function initmouse(paintDiv) {
-  if(paint === undefined){
+  if (paintDiv === undefined) {
     return false;
-  }  
+  }
+  console.log("paintDiv", paintDiv);
   paint = paintDiv;
 }
 export { mouse, initmouse };

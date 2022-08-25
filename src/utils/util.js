@@ -23,20 +23,24 @@ function returnStyle(styleName, objectstyleAtt, style) {
 }
 function styleHandle(objectstyleAtt, style) {
   console.log("style", style);
-  
-  let paintStore = usePaintStore();console.log("objectstyleAtt", objectstyleAtt, paintStore);
-  objectstyleAtt["top"] -= Number(paintStore.pageTop) ;
-  objectstyleAtt["top"] = objectstyleAtt["top"].toFixed(0);
-  console.log(paintStore.scale);
+
+  let paintStore = usePaintStore();
+  // console.log(
+  //   "objectstyleAtt",
+  //   objectstyleAtt,
+  //   +paintStore.pageTop,
+  //   paintStore.pageLeft
+  // );
+  objectstyleAtt["top"] -= Number(paintStore.pageTop);
+  objectstyleAtt["top"] = objectstyleAtt["top"];
+  console.log("scal", paintStore.scale);
   console.log(objectstyleAtt["top"]);
-  objectstyleAtt["top"] = (objectstyleAtt["top"] / paintStore.scale).toFixed(0);
+  objectstyleAtt["top"] = objectstyleAtt["top"] / paintStore.scale;
   console.log(objectstyleAtt["top"]);
   objectstyleAtt["left"] -= Number(paintStore.pageLeft);
-  objectstyleAtt["left"] = objectstyleAtt["left"].toFixed(0);
+  objectstyleAtt["left"] = objectstyleAtt["left"];
   console.log(objectstyleAtt["left"]);
-  objectstyleAtt["left"] = (objectstyleAtt["left"] / paintStore.scale).toFixed(
-    0
-  );
+  objectstyleAtt["left"] = objectstyleAtt["left"] / paintStore.scale;
   console.log(objectstyleAtt["left"]);
   if (
     objectstyleAtt["top"] < 0 ||
