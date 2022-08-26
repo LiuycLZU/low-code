@@ -2,7 +2,7 @@
 // 组件按钮拖拽到画布
 // 拖拽类
 import { nextTick } from "vue";
-import { getMousePos } from "@/utils/util.js";
+import { getMousePos, isOverflowFull } from "@/utils/util.js";
 import emitter from "@/utils/mitt.js";
 import { usePaintStore } from "@/stores/paint.js";
 
@@ -53,7 +53,15 @@ class ComZoom {
       style.left = this.left + "px";
       style.height = this.height + "px";
       style.width = this.width + "px";
-      console.log(style);
+      console.log(style.left);
+      if (isOverflowFull(style) === true) {
+      } else {
+        let coor = isOverflowFull(style);
+        this.left = coor[0];
+        style.left = coor[0] + "px";
+        this.top = coor[1];
+        style.top = coor[1] + "px";
+      }
     });
   }
   reset() {
@@ -80,9 +88,8 @@ class ComZoom {
     if (paintStore.isPlace) {
       //可不可以移动
       paintStore.isPlace = false;
-      console.log("dom", this.dom.style, Object.keys(this.dom.style).length);
+      console.log(this.top, this.left);
       if (Number(Object.keys(this.dom.style).length) < 30) {
-        console.log("@@@@");
         emitter.emit("receiveComponents", this.dom.style);
       } else {
         emitter.emit("receiveComponents", {

@@ -8,13 +8,13 @@
       :style="'width:' + length + 'px;height:' + width + 'px'"
     >
       <pButton
-        v-for="item in components.button"
+        v-for="item in domArrButton"
         :key="item.id"
         :style="item.style"
-        :buttonId="item.id"
+        :id="item.id"
       />
       <pInput
-        v-for="item in components.input"
+        v-for="item in domArrInput"
         :key="item.id"
         :styledom="item.style"
         :id="item.id"
@@ -52,7 +52,7 @@ let paintDiv = ref(null); //画布
 let paintCon = ref(null); //画布容器
 let comArray = ref([]); //控制的数组
 let components = reactive({ button: [], input: [] });
-let { width, length } = storeToRefs(paintStore);
+let { width, length, domArrButton, domArrInput } = storeToRefs(paintStore);
 //接受组件的函数
 function receiveComponents(res) {
   let style = paintDiv.value.getBoundingClientRect();
@@ -62,7 +62,7 @@ function receiveComponents(res) {
   }
   style.length = paintStore.length;
   style.width = paintStore.width;
-  let rStyle = returnStyle(["height", "width", "top", "left"], res, style);
+  let rStyle = returnStyle(res, style);
   if (rStyle != false) {
     comArray.value.push({
       id: Date.now().valueOf(), //id
@@ -70,7 +70,7 @@ function receiveComponents(res) {
       type: res.type,
     });
   }
-  console.log("@",comArray);
+  paintStore.domArr = comArray.value;
   //初始化组件移动容器
   initmouse(paintDiv.value);
 }
@@ -126,17 +126,10 @@ emiter.on("paintOk", () => {
 //用户点击保存，将数据存到localstorge
 emiter.on("preview", () => {
   setdata("domData", toRaw(comArray.value));
-  console.log(toRaw(comArray.value));
   ElMessage({
     message: "保存成功",
     type: "success",
   });
-});
-components.button = computed(() => {
-  return comArray.value.filter((item) => item.type === "zButton");
-});
-components.input = computed(() => {
-  return comArray.value.filter((item) => item.type === "zInput");
 });
 </script>
 

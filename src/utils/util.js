@@ -9,9 +9,8 @@ function getMousePos() {
   let cy = e.clientY;
   return { x: x, y: y, cx: cx, cy: cy };
 }
-function returnStyle(styleName, objectstyleAtt, style) {
+function returnStyle(objectstyleAtt, style) {
   //传入一个样式名，后面是对象，样式属性，最后返回一个拼接好的字符串
-  console.log(objectstyleAtt);
   if (styleHandle(objectstyleAtt, style)) {
     let arr = {};
     for (let i in objectstyleAtt) {
@@ -31,11 +30,18 @@ function styleHandle(objectstyleAtt, style) {
   let paintStore = usePaintStore();
   objectstyleAtt["top"] = parseFloat(objectstyleAtt["top"]);
   objectstyleAtt["left"] = parseFloat(objectstyleAtt["left"]);
-  objectstyleAtt["top"] -= Number(paintStore.pageTop);
-  objectstyleAtt["top"] = objectstyleAtt["top"];
+  if (objectstyleAtt["top"] - Number(paintStore.pageTop) < 0) {
+    objectstyleAtt["top"] = objectstyleAtt["top"];
+  } else {
+    objectstyleAtt["top"] -= Number(paintStore.pageTop);
+  }
   objectstyleAtt["top"] = objectstyleAtt["top"] / paintStore.scale;
-  objectstyleAtt["left"] -= Number(paintStore.pageLeft);
-  objectstyleAtt["left"] = objectstyleAtt["left"];
+
+  if (objectstyleAtt["left"] + Number(paintStore.pageLeft) < 0) {
+    objectstyleAtt["left"] = objectstyleAtt["left"];
+  } else {
+    objectstyleAtt["left"] -= Number(paintStore.pageLeft);
+  }
   objectstyleAtt["left"] = objectstyleAtt["left"] / paintStore.scale;
   if (
     objectstyleAtt["top"] < 0 ||
@@ -122,16 +128,94 @@ function getElementTop(element) {
   }
   return actualTop;
 }
+//数组转对象
 function arrToObject(arr) {
   try {
     let obj = {};
-    arr.forEach(i => {
+    arr.forEach((i) => {
       obj[i.name] = i.value;
     });
-    return arr;
+    return obj;
   } catch (error) {
     return error;
   }
+}
+//判断是否溢出
+function isOverflow(style) {
+  //成功返回一个布尔值，失败返回一个（x,y）坐标
+  let paintStore = usePaintStore();
+  if (
+    parseInt(style.left) + parseInt(style.width) >
+      parseInt(paintStore.length) ||
+    parseInt(style.left) < 0 ||
+    parseInt(style.top) < 0 ||
+    parseInt(style.top) + parseInt(style.height) > parseInt(paintStore.width)
+  ) {
+    let coor = [parseInt(style.left), parseInt(style.top)];
+    if (parseInt(style.left) < 0) {
+      coor[0] = 0;
+    } else if (
+      parseInt(style.left) + parseInt(style.width) >
+      parseInt(paintStore.length)
+    ) {
+      //宽度设置在attrEdit里面，故不存在负数可能性
+      coor[0] = parseInt(paintStore.length) - parseInt(style.width);
+    }
+    if (parseInt(style.top) < 0) {
+      coor[1] = 0;
+    } else if (
+      parseInt(style.top) + parseInt(style.height) >
+      parseInt(paintStore.width)
+    ) {
+      //宽度设置在attrEdit里面，故不存在负数可能性
+      coor[1] = parseInt(paintStore.width) - parseInt(style.height);
+    }
+    return coor;
+  }
+  return true;
+}
+//判断是否溢出
+function isOverflowFull(style) {
+  //成功返回一个布尔值，失败返回一个（x,y）坐标
+  let paintStore = usePaintStore();
+  if (
+    parseInt(style.left) + parseInt(style.width) >
+      parseInt(paintStore.length) + parseInt(paintStore.pageLeft) ||
+    parseInt(style.left) - parseInt(paintStore.pageLeft) < 0 ||
+    parseInt(style.top) - parseInt(paintStore.pageTop) < 0 ||
+    parseInt(style.top) + parseInt(style.height) >
+      parseInt(paintStore.width) + parseInt(paintStore.pageTop)
+  ) {
+    let coor = [parseInt(style.left), parseInt(style.top)];
+    console.log(parseInt(style.top));
+    if (parseInt(style.left) - parseInt(paintStore.pageLeft) < 0) {
+      coor[0] = parseInt(paintStore.pageLeft);
+    } else if (
+      parseInt(style.left) + parseInt(style.width) >
+      parseInt(paintStore.length + paintStore.pageLeft)
+    ) {
+      //宽度设置在attrEdit里面，故不存在负数可能性
+      coor[0] =
+        parseInt(paintStore.length) -
+        parseInt(style.width) +
+        +parseInt(paintStore.pageLeft);
+    }
+    if (parseInt(style.top) - parseInt(paintStore.pageTop) < 0) {
+      coor[1] = parseInt(paintStore.pageTop);
+    } else if (
+      parseInt(style.top) + parseInt(style.height) >
+      parseInt(paintStore.width) + parseInt(paintStore.pageTop)
+    ) {
+      //宽度设置在attrEdit里面，故不存在负数可能性
+      coor[1] =
+        parseInt(paintStore.width) -
+        parseInt(style.height) +
+        parseInt(paintStore.pageTop);
+    }
+    console.log(coor[1]);
+    return coor;
+  }
+  return true;
 }
 export {
   getMousePos,
@@ -141,4 +225,6 @@ export {
   getElementLeft,
   getElementTop,
   arrToObject,
+  isOverflow,
+  isOverflowFull,
 };

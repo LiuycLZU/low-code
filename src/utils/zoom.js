@@ -1,12 +1,45 @@
+import { nextTick } from "vue";
+import { getElementTop, getElementLeft, isOverflow } from "@/utils/util.js";
+import { usePaintStore } from "@/stores/paint.js";
 let paint;
-function mouse(optionDom, moveFun, styleDom = undefined) {
+
+function mouse(optionDom, id, styleDom = undefined) {
   this.optionDom = optionDom;
-  this.moveFun = moveFun;
+  this.id = id;
   this.styleDom = styleDom;
+  this.time = Date.now();
+  this.moveFun = function (e, optionDom, paint) {
+    let paintStore = usePaintStore();
+    if (Date.now() - this.time < 30) {
+      //节流
+      return;
+    }
+    this.time = Date.now();
+    nextTick(() => {
+      optionDom.style.top =
+        (e.pageY - getElementTop(paint)) / paintStore.scale + "px";
+      optionDom.style.left =
+        (e.pageX - getElementLeft(paint)) / paintStore.scale + "px";
+    });
+  };
+  this.moveFunPlus = function (optionDom) {
+    let paintStore = usePaintStore();
+    paintStore.domArr.forEach((e) => {
+      if (e.id === this.id) {
+        e.style.top = optionDom.style.top;
+        e.style.left = optionDom.style.left;
+        if (isOverflow(e.style) === true) {
+        } else {
+          let coor = isOverflow(e.style);
+          e.style.left = coor[0] + "px";
+          optionDom.style.left = coor[0] + "px";
+          e.style.top = coor[1] + "px";
+          optionDom.style.top = coor[1] + "px";
+        }
+      }
+    });
+  };
   this.mouseDownFun = function (that) {
-    console.log("down");
-    console.log(paint);
-    console.dir(that);
     paint.addEventListener("mousemove", this.mouseMoveFunBind);
     paint.addEventListener("mouseup", this.mouseUpFunBind);
     paint.addEventListener("mouseleave", this.mouseLeaveFunBind);
@@ -15,7 +48,8 @@ function mouse(optionDom, moveFun, styleDom = undefined) {
     //鼠标移动事件
     this.moveFun(e, this.styleDom ? this.styleDom : this.optionDom, paint);
   };
-  this.mouseUpFun = function () {
+  this.mouseUpFun = function (e) {
+    this.moveFunPlus(this.styleDom ? this.styleDom : this.optionDom);
     paint.removeEventListener("mousemove", this.mouseMoveFunBind);
     paint.removeEventListener("mouseup", this.mouseUpFunBind);
     paint.removeEventListener("mouseleave", this.mouseLeaveFunBind);

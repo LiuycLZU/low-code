@@ -11,7 +11,7 @@
 </template>
 <script>
 export default defineComponent({
-  props: ["buttonId"],
+  props: ["id"],
   name: "pButton",
 });
 </script>
@@ -38,37 +38,21 @@ function attrEdit() {
   for (let i = 0; style[i] != undefined; i++) {
     attrStyle[style[i]] = style[style[i]];
   }
-  attrStyle["buttonId"] = props.buttonId;
+  attrStyle["id"] = props.id;
   emitter.emit("attrEdit", attrStyle);
 }
 //接受属性变化
 emitter.on("attrEditOk", (res) => {
-  if (res.buttonId === props.buttonId) {
+  if (res.id === props.id) {
     let style = pButtonDiv.value.ref.style;
     for (let i = 0; style[i] != undefined; i++) {
       style[style[i]] = res[style[i]];
     }
+    res.length = 0;
   }
 });
-let time = Date.now();
-function moveFun(e, optionDom, paint) {
-  //移动按钮，见第四行
-  if (Date.now() - time < 30) {
-    //节流
-    return;
-  }
-  time = Date.now();
-  console.log(getMousePos());
-  console.log(e);
-  nextTick(() => {
-    optionDom.style.top =
-      (e.pageY - getElementTop(paint)) / paintStore.scale + "px";
-    optionDom.style.left =
-      (e.pageX - getElementLeft(paint)) / paintStore.scale + "px";
-  });
-}
 function mouseDown() {
-  let m = new mouse(pButtonDiv.value.ref, moveFun);
+  let m = new mouse(pButtonDiv.value.ref, props.id);
   m.initZoom();
 }
 </script>

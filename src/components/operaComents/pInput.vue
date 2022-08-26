@@ -8,7 +8,7 @@
     @click="attrEdit"
     @mousedown="mouseDown"
   >
-    <el-form-item :label="styleDom.style.label">
+    <el-form-item :label="styleDom.style.label" user-select="none">
       <el-input :width="styleDom.style.width"></el-input>
     </el-form-item>
   </div>
@@ -49,44 +49,22 @@ function attrEdit() {
   for (let i in styleDom.style) {
     attrStyle[i] = styleDom.style[i];
   }
-  console.log(attrStyle.style);
   attrStyle["id"] = props.id;
   emitter.emit("attrEdit", attrStyle);
 }
 //接受属性变化
 emitter.on("attrEditOk", (res) => {
-  console.log(res, props.id);
-  res.forEach((i) => {
-    if (i.name === "id" && i.value === props.id) {
-      console.log('');
-      res.forEach((i) => {
-        let style = styleDom.style;
-        styleDom.style[i.name] = i.value;
-      });
+  console.log(res, props.id, styleDom.style);
+  if (res.id === props.id) {
+    let style = styleDom.style;
+    for (let i in style) {
+      style[i] = res[i];
     }
-  });
-
-  // res.length = 0;
-});
-let time = Date.now();
-function moveFun(e, optionDom, paint) {
-  //移动按钮，见第四行
-  if (Date.now() - time < 10) {
-    //节流
-    return;
+    res.length = 0;
   }
-  time = Date.now();
-  console.log(getMousePos());
-  console.log(e);
-  nextTick(() => {
-    optionDom.style.top =
-      (e.pageY - getElementTop(paint)) / paintStore.scale + "px";
-    optionDom.style.left =
-      (e.pageX - getElementLeft(paint)) / paintStore.scale + "px";
-  });
-}
+});
 function mouseDown() {
-  let m = new mouse(pComDiv.value, moveFun, styleDom);
+  let m = new mouse(pComDiv.value, props.id, styleDom);
   m.initZoom();
 }
 </script>
