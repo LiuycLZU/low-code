@@ -31,17 +31,6 @@ import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
 const paintStore = usePaintStore();
 let { width, length, domArrButton, domArrInput } = storeToRefs(paintStore);
-let comArray = ref([]);
-let components = reactive({ button: [], input: [] });
-onMounted(() => {
-  comArray.value = getdata("domData");
-});
-components.button = computed(() => {
-  return comArray.value.filter((item) => item.type === "zButton");
-});
-components.input = computed(() => {
-  return comArray.value.filter((item) => item.type === "zInput");
-});
 </script>
 <style scoped>
 .paintDiv {

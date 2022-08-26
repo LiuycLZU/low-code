@@ -5,7 +5,7 @@
     ><!-- 用户点击按钮 -->
     <div class="positionFixed" ref="zComDiv" :style="domStyle.style">
       <el-form-item :label="domStyle.style.label">
-        <el-input :width="domStyle.style.width"></el-input>
+        <el-input v-model="domStyle.style.model" :width="domStyle.style.width"></el-input>
       </el-form-item>
     </div>
 
@@ -33,6 +33,8 @@ let domStyle = reactive({
     height: "20px",
     label: "标签",
     type: "zInput",
+    model:"",
+    inputName:"button"+Date.now().valueOf(),
   },
 });
 const paintStore = usePaintStore();

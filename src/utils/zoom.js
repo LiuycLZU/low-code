@@ -46,10 +46,10 @@ function mouse(optionDom, id, styleDom = undefined) {
   };
   this.mouseMoveFun = function (e) {
     //鼠标移动事件
-    this.moveFun(e, this.styleDom ? this.styleDom : this.optionDom, paint);
+    this.moveFun(e, this.styleDom, paint);
   };
   this.mouseUpFun = function (e) {
-    this.moveFunPlus(this.styleDom ? this.styleDom : this.optionDom);
+    this.moveFunPlus(this.styleDom);
     paint.removeEventListener("mousemove", this.mouseMoveFunBind);
     paint.removeEventListener("mouseup", this.mouseUpFunBind);
     paint.removeEventListener("mouseleave", this.mouseLeaveFunBind);

@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑属性页面 -->
   <div>
-    <el-form :model="form" label-width="60px" :inline="true">
+    <el-form :model="form" label-width="75px" :inline="true">
       <el-form-item
         v-for="item in formArrComputed"
         :key="item.name"
@@ -27,7 +27,7 @@ import emitter from "@/utils/mitt.js";
 import { arrToObject, deepClone } from "@/utils/util.js";
 import { usePaintStore } from "@/stores/paint.js";
 import { ElMessage } from "element-plus";
-let form = ref({});
+
 let formArr = ref([]);
 let paintStore = usePaintStore();
 let nameLabrl = {
@@ -36,17 +36,18 @@ let nameLabrl = {
   top: "Y轴",
   left: "X轴",
   label: "标签名",
+  model: "内容",
+  buttonCon: "按钮内容",
+  inputName: "组件名",
 }; //属性的name对应相应的label
 
 //监听“on”
 emitter.on("attrEdit", (res) => {
   formArr.value.length = 0;
-  form.value = {};
-  Object.assign(form.value, res);
-  for (let value in form.value) {
+  for (let value in res) {
     formArr.value.push({
       name: value,
-      value: form.value[value],
+      value: res[value],
       label: nameLabrl[value] ? nameLabrl[value] : value,
     });
   }
@@ -66,25 +67,27 @@ function onSubmit() {
     });
     return false;
   }
-  console.log(formArr.value);
-
   emitter.emit("attrEditOk", obj);
   for (let i = 0; i < paintStore.domArr.length; i++) {
-    console.log("###",paintStore.domArr.id, obj.id);
     if (paintStore.domArr[i].id === obj.id) {
-      paintStore.domArr.style = deepClone(obj);
-      console.log("");
+      paintStore.domArr[i].style = deepClone(obj);
     }
   }
-  form.value = {};
+  console.log(formArr.value);
+  formArr.value.length = 0;
 }
 function delect() {
+  let obj = arrToObject(formArr.value);
+  for (let i = 0; i < paintStore.domArr.length; i++) {
+    if (paintStore.domArr[i].id === obj.id) {
+      paintStore.domArr.splice(i,1);
+    }
+  }
   formArr.value.length = 0;
-  form.value = {};
 }
 let formArrComputed = computed(() => {
   return formArr.value.filter(
-    (i) => !["buttonId", "id", "display", "type"].includes(i.name)
+    (i) => !["id", "display", "type"].includes(i.name)
   );
 });
 </script>

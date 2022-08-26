@@ -9,7 +9,7 @@
     @mousedown="mouseDown"
   >
     <el-form-item :label="styleDom.style.label" user-select="none">
-      <el-input :width="styleDom.style.width"></el-input>
+      <el-input v-model="styleDom.style.model" :width="styleDom.style.width"></el-input>
     </el-form-item>
   </div>
 </template>
@@ -32,9 +32,7 @@ import {
 import emitter from "@/utils/mitt.js";
 import { mouse } from "@/utils/zoom.js";
 import { getMousePos, getElementLeft, getElementTop } from "@/utils/util.js";
-import { usePaintStore } from "@/stores/paint.js";
 let { props } = getCurrentInstance();
-let paintStore = usePaintStore();
 let pComDiv = ref(null);
 let styleDom = reactive({ style: {} });
 //input的样式
@@ -54,13 +52,12 @@ function attrEdit() {
 }
 //接受属性变化
 emitter.on("attrEditOk", (res) => {
-  console.log(res, props.id, styleDom.style);
   if (res.id === props.id) {
     let style = styleDom.style;
     for (let i in style) {
       style[i] = res[i];
     }
-    res.length = 0;
+    res = {}
   }
 });
 function mouseDown() {

@@ -15,7 +15,7 @@ function returnStyle(objectstyleAtt, style) {
     let arr = {};
     for (let i in objectstyleAtt) {
       let floatNum = Number(objectstyleAtt[i]);
-      if (isNaN(floatNum)) {
+      if (isNaN(floatNum) || objectstyleAtt[i] === "") {
         arr[i] = objectstyleAtt[i] + "";
       } else {
         arr[i] = floatNum + "px";

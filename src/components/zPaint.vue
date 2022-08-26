@@ -10,7 +10,7 @@
       <pButton
         v-for="item in domArrButton"
         :key="item.id"
-        :style="item.style"
+        :styledom="item.style"
         :id="item.id"
       />
       <pInput

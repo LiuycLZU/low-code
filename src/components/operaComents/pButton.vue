@@ -4,6 +4,7 @@
     type="primary"
     class="absolution noMarign"
     ref="pButtonDiv"
+    :style="styleDom.style"
     @dblclick="attrEdit"
     @mousedown="mouseDown"
     >按钮</el-button
@@ -11,32 +12,27 @@
 </template>
 <script>
 export default defineComponent({
-  props: ["id"],
+  props: ["id", "styledom"],
   name: "pButton",
 });
 </script>
 <script setup>
-import {
-  defineComponent,
-  ref,
-  getCurrentInstance,
-  onMounted,
-  nextTick,
-} from "vue";
+import { defineComponent, ref, getCurrentInstance, reactive } from "vue";
 import emitter from "@/utils/mitt.js";
 import { mouse } from "@/utils/zoom.js";
-import { getMousePos, getElementLeft, getElementTop } from "@/utils/util.js";
-import { usePaintStore } from "@/stores/paint.js";
 let { props } = getCurrentInstance();
-let paintStore = usePaintStore();
 let pButtonDiv = ref(null);
-
+let styleDom = reactive({ style: {} });
+//样式
+for (let i in props.styledom) {
+  styleDom.style[i] = props.styledom[i];
+}
 //双击函数
 function attrEdit() {
-  let style = pButtonDiv.value.ref.style;
   let attrStyle = {};
-  for (let i = 0; style[i] != undefined; i++) {
-    attrStyle[style[i]] = style[style[i]];
+  let style = styleDom.style;
+  for (let i in styleDom.style) {
+    attrStyle[i] = styleDom.style[i];
   }
   attrStyle["id"] = props.id;
   emitter.emit("attrEdit", attrStyle);
@@ -44,15 +40,15 @@ function attrEdit() {
 //接受属性变化
 emitter.on("attrEditOk", (res) => {
   if (res.id === props.id) {
-    let style = pButtonDiv.value.ref.style;
-    for (let i = 0; style[i] != undefined; i++) {
-      style[style[i]] = res[style[i]];
+    let style = styleDom.style;
+    for (let i in style) {
+      style[i] = res[i];
     }
-    res.length = 0;
+    res = {};
   }
 });
 function mouseDown() {
-  let m = new mouse(pButtonDiv.value.ref, props.id);
+  let m = new mouse(pButtonDiv.value.ref, props.id, styleDom);
   m.initZoom();
 }
 </script>

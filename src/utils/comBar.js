@@ -88,18 +88,7 @@ class ComZoom {
     if (paintStore.isPlace) {
       //可不可以移动
       paintStore.isPlace = false;
-      console.log(this.top, this.left);
-      if (Number(Object.keys(this.dom.style).length) < 30) {
-        emitter.emit("receiveComponents", this.dom.style);
-      } else {
-        emitter.emit("receiveComponents", {
-          type: this.type,
-          width: this.width,
-          height: this.height,
-          top: this.top,
-          left: this.left,
-        });
-      }
+      emitter.emit("receiveComponents", this.dom.style);
     }
     this.reset();
     this.componentReleaseOver();
