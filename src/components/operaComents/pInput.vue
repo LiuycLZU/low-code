@@ -8,7 +8,7 @@
     @click="attrEdit"
     @mousedown="mouseDown"
   >
-    <el-form-item :label="styleDom.style.label" user-select="none">
+    <el-form-item :label="styleDom.style.label">
       <el-input v-model="styleDom.style.model" :width="styleDom.style.width"></el-input>
     </el-form-item>
   </div>

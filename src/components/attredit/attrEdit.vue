@@ -39,6 +39,7 @@ let nameLabrl = {
   model: "内容",
   buttonCon: "按钮内容",
   inputName: "组件名",
+  formUrl:"提交地址"
 }; //属性的name对应相应的label
 
 //监听“on”

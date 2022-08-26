@@ -4,13 +4,13 @@
       class="relative full paintDiv"
       :style="'width:' + length + 'px;height:' + width + 'px'"
     >
-      <pButton
+      <sButton
         v-for="item in domArrButton"
         :key="item.id"
-        :style="item.style"
+        :styledom="item.style"
         :id="item.id"
       />
-      <pInput
+      <sInput
         v-for="item in domArrInput"
         :key="item.id"
         :styledom="item.style"
@@ -25,10 +25,11 @@ export default defineComponent({
 });
 </script>
 <script setup>
-import { defineComponent, onMounted, ref, computed, reactive } from "vue";
-import { getdata } from "@/utils/localData.js";
+import { defineComponent } from "vue";
 import { usePaintStore } from "@/stores/paint.js";
 import { storeToRefs } from "pinia";
+import sButton from "@/components/showCom/sButton.vue";
+import sInput from "@/components/showCom/sInput.vue";
 const paintStore = usePaintStore();
 let { width, length, domArrButton, domArrInput } = storeToRefs(paintStore);
 </script>

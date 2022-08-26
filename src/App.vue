@@ -1,7 +1,6 @@
 
 <template><router-view></router-view></template>
 <script setup>
-import desktop from "@/page/desktop.vue";
 </script>
 
 <style scoped>

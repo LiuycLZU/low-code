@@ -7,7 +7,7 @@
     :style="styleDom.style"
     @dblclick="attrEdit"
     @mousedown="mouseDown"
-    >按钮</el-button
+    >{{ styleDom.style.buttonCon }}</el-button
   >
 </template>
 <script>

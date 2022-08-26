@@ -33,6 +33,7 @@ let domStyle = reactive({
     height: "20px",
     type: "zButton",
     buttonCon: "提交",
+    formUrl: "",
   },
 });
 //鼠标按下滑动过程：鼠标按下+鼠标移动+鼠标抬起
