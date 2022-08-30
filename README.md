@@ -1,2 +1,2 @@
 # low-code
-1
+node>12.0.0
