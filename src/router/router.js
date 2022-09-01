@@ -7,6 +7,9 @@ export default createRouter({
     {
       path: "/",
       name: "desktop",
+      meta: {
+        keepAlive: true //设置页面是否需要使用缓存
+    },
       component: desktop,
     },
     {
